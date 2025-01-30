@@ -59,6 +59,11 @@ class DocNode(BaseModel):
         from .common import get_fpath_items
         try:
             self.li_node = get_fpath_items(self.doc_path, D).els[0] #
+            try:
+                fpath_source = self.doc_path[:-4]+'source'
+                self.file_name = get_fpath_items(fpath_source, D).els[0]
+            except Exception as e:
+                self.file_name = 'Unknown'
             self.is_ref = False
             return True
         except Exception as e:
